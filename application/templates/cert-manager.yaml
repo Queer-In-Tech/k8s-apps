@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+  sources:
+  - repoURL: oci://quay.io/jetstack/charts/cert-manager
+    targetRevision: "v1.19.2"
+    path: .
+    helm:
+      valueFiles:
+      - $values/cert-manager/values.yaml
+  - repoURL: 'https://github.com/Queer-In-Tech/k8s-apps.git'
+    ref: values
+  - repoURL: 'https://github.com/Queer-In-Tech/k8s-apps.git'
+    path: cert-manager
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: cert-manager

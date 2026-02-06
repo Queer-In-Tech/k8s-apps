@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: authentik
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+  ignoreDifferences:
+  - group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    jqPathExpressions:
+    - .spec.rules[].backendRefs[].group
+    - .spec.rules[].backendRefs[].kind
+    - .spec.rules[].backendRefs[].weight
+    - .spec.parentRefs[].group
+    - .spec.parentRefs[].kind
+  sources:
+  - repoURL: https://charts.goauthentik.io/
+    targetRevision: "2025.10.3"
+    chart: authentik 
+    helm:
+      valueFiles:
+      - $values/authentik/values.yaml
+  - repoURL: 'https://github.com/Queer-In-Tech/k8s-apps.git'
+    ref: values
+  - repoURL: 'https://github.com/Queer-In-Tech/k8s-apps.git'
+    path: authentik
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: authentik
