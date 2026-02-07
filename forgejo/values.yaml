@@ -1,0 +1,3 @@
+forgejo:
+  image: codeberg.org/forgejo/forgejo
+  tag: "14.0.2"

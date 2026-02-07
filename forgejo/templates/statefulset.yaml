@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: forgejo
+spec:
+  selector:
+    matchLabels:
+      app: forgejo 
+  serviceName: "forgejo"
+  replicas: 1
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: forgejo
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: forgejo
+        image: {{ .Values.forgejo.image }}:{{ .Values.forgejo.tag }}
+        ports:
+        - containerPort: 3000
+          name: web
+        - containerPort: 22
+          name: ssh
+        volumeMounts:
+        - name: forgejo
+          mountPath: /data
+        env:
+        - name: USER_UID
+          value: 1000
+        - name: USER_GID
+          value: 1000
+        - name: FORGEJO__database__DB_TYPE
+          value: postgres
+        - name: FORGEJO__database__NAME
+          value: forgejo
+        - name: FORGEJO__database__USER
+          value: forgejo
+        - name: FORGEJO__database__HOST
+          valueFrom:
+            secretKeyRef:
+              name: forgejo-postgres-app
+              key: host
+        - name: FORGEJO__database__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: forgejo-postgres-app
+              key: password
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: forgejo
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: longhorn-single-replica
