@@ -57,6 +57,10 @@ spec:
           value: "true"
         - name: FORGEJO__service__REGISTER_EMAIL_CONFIRM
           value: "false"
+        - name: FORGEJO__oauth2_client__ENABLE_AUTO_REGISTRATION
+          value: "true"
+        - name: FORGEJO__oauth2_client__ACCOUNT_LINKING
+          value: "auto"
   volumeClaimTemplates:
   - apiVersion: v1
     kind: PersistentVolumeClaim
