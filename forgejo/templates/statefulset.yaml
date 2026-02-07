@@ -47,15 +47,15 @@ spec:
             secretKeyRef:
               name: forgejo-postgres-app
               key: password
-        - name: FORGEJO_openid_ENABLE_OPENID_SIGNIN
+        - name: FORGEJO__openid__ENABLE_OPENID_SIGNIN
           value: "false"
-        - name: FORGEJO_openid_ENABLE_OPENID_SIGNUP
+        - name: FORGEJO__openid__ENABLE_OPENID_SIGNUP
           value: "false"
-        - name: FORGEJO_service_DISABLE_REGISTRATION
+        - name: FORGEJO__service__DISABLE_REGISTRATION
           value: "false"
-        - name: FORGEJO_service_ALLOW_ONLY_EXTERNAL_REGISTRATION
+        - name: FORGEJO__service__ALLOW_ONLY_EXTERNAL_REGISTRATION
           value: "true"
-        - name: FORGEJO_service_REGISTER_EMAIL_CONFIRM
+        - name: FORGEJO__service__REGISTER_EMAIL_CONFIRM
           value: "false"
   volumeClaimTemplates:
   - apiVersion: v1
