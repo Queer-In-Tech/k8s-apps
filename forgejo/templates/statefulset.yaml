@@ -28,9 +28,9 @@ spec:
           mountPath: /data
         env:
         - name: USER_UID
-          value: 1000
+          value: "1000"
         - name: USER_GID
-          value: 1000
+          value: "1000"
         - name: FORGEJO__database__DB_TYPE
           value: postgres
         - name: FORGEJO__database__NAME
