@@ -18,6 +18,19 @@ spec:
       containers:
       - name: vaultwarden
         image: {{ .Values.vaultwarden.image }}:{{ .Values.vaultwarden.tag }}
+        env:
+        - name: DATABASE_URL
+          value: postgresql://vaultwarden-postgress-rw/vaultwarden
+        - name: PGUSER
+          valueFrom:
+            secretKeyRef:
+              name: vaultwarden-postgres-app
+              key: username
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vaultwarden-postgres-app
+              key: password
         ports:
         - containerPort: 80
           name: web
