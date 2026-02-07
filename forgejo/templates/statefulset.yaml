@@ -42,7 +42,7 @@ spec:
             secretKeyRef:
               name: forgejo-postgres-app
               key: host
-        - name: FORGEJO__database__PASSWORD
+        - name: FORGEJO__database__PASSWD
           valueFrom:
             secretKeyRef:
               name: forgejo-postgres-app
