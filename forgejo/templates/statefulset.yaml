@@ -26,8 +26,6 @@ spec:
         volumeMounts:
         - name: forgejo
           mountPath: /var/lib/gitea
-        securityContext:
-          fsGroup: 1000
         env:
         - name: USER_UID
           value: "1000"
@@ -63,6 +61,8 @@ spec:
           value: "true"
         - name: FORGEJO__oauth2_client__ACCOUNT_LINKING
           value: "auto"
+      securityContext:
+        fsGroup: 1000
   volumeClaimTemplates:
   - apiVersion: v1
     kind: PersistentVolumeClaim
