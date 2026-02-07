@@ -1,10 +1,6 @@
 global:
   domain: argocd.queerintech.org
 
-configs: 
-  params: 
-    server.insecure: true
-
 server:
   httproute:
     enabled: true
@@ -17,6 +13,8 @@ server:
         namespace: traefik
 
 configs:
+  params: 
+    server.insecure: true
   cm:
     oidc.config: |
       name: Authentik
