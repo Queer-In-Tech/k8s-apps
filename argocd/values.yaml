@@ -1,6 +1,10 @@
 global:
   domain: argocd.queerintech.org
 
+configs: 
+  params: 
+    server.insecure: true
+
 server:
   httproute:
     enabled: true
