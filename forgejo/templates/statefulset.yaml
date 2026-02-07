@@ -25,7 +25,7 @@ spec:
           name: ssh
         volumeMounts:
         - name: forgejo
-          mountPath: /data
+          mountPath: /var/lib/gitea
         env:
         - name: USER_UID
           value: "1000"
