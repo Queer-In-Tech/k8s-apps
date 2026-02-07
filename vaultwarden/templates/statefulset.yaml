@@ -20,7 +20,7 @@ spec:
         image: {{ .Values.vaultwarden.image }}:{{ .Values.vaultwarden.tag }}
         env:
         - name: DATABASE_URL
-          value: postgresql://vaultwarden-postgress-rw/vaultwarden
+          value: postgresql://vaultwarden-postgres-rw/vaultwarden
         - name: PGUSER
           valueFrom:
             secretKeyRef:
