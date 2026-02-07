@@ -9,6 +9,7 @@ authentik:
     host: file:///authentik-mail/host
     username: file:///authentik-mail/username
     password: file:///authentik-mail/password
+    use_tls: true
 
 server:
   route:
