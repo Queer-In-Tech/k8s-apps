@@ -4,6 +4,11 @@ authentik:
     host: file:///postgres-creds/host
     user: file:///postgres-creds/username
     password: file:///postgres-creds/password
+  email:
+    from: file:///authentik-mail/from
+    host: file:///authentik-mail/host
+    username: file:///authentik-mail/username
+    password: file:///authentik-mail/password
 
 server:
   route:
@@ -21,12 +26,18 @@ server:
     - name: authentik-secret-key
       secret:
         secretName: authentik-secret-key
+    - name: authentik-mail
+      secret:
+        secretName: authentik-mail
   volumeMounts:
     - name: postgres-creds
       mountPath: /postgres-creds
       readOnly: true
     - name: authentik-secret-key
       mountPath: /authentik-secret-key
+      readOnly: true
+    - name: authentik-mail
+      mountPath: /authentik-mail
       readOnly: true
 
 worker:
@@ -37,10 +48,16 @@ worker:
     - name: authentik-secret-key
       secret:
         secretName: authentik-secret-key
+    - name: authentik-mail
+      secret:
+        secretName: authentik-mail
   volumeMounts:
     - name: postgres-creds
       mountPath: /postgres-creds
       readOnly: true
     - name: authentik-secret-key
       mountPath: /authentik-secret-key
+      readOnly: true
+    - name: authentik-mail
+      mountPath: /authentik-mail
       readOnly: true
