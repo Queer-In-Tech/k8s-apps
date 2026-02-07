@@ -1,0 +1,21 @@
+global:
+  domain: argocd.queerintech.org
+
+server:
+  httproute:
+    enabled: true
+    parentRefs:
+      - name: traefik-gateway
+        namespace: traefik
+
+configs:
+  cm:
+    oidc.config: |
+      name: Authentik
+      issuer: https://auth.queerintech.org
+      clientID: argocd
+      clientSecret: $argocd-authentik:secret
+      skipAudienceCheckWhenTokenHasNoAudience: true
+      requestedScopes: ["openid", "profile", "email", "groups"]
+      requestedIDTokenClaims: {"groups": {"essential": true}}
+      enablePKCEAuthentication: true
