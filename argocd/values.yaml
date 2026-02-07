@@ -18,7 +18,7 @@ configs:
   cm:
     oidc.config: |
       name: Authentik
-      issuer: https://auth.queerintech.org
+      issuer: https://auth.queerintech.org/application/o/argocd/
       clientID: argocd
       clientSecret: $argocd-authentik:secret
       skipAudienceCheckWhenTokenHasNoAudience: true
