@@ -26,6 +26,8 @@ spec:
         volumeMounts:
         - name: forgejo
           mountPath: /var/lib/gitea
+        securityContext:
+          fsGroup: 1000
         env:
         - name: USER_UID
           value: "1000"
